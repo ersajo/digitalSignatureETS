@@ -14,28 +14,22 @@ class SHA1(object):
 
     def strToBin(self, msg):
         return bin(int(binascii.hexlify(msg), 16))
-        """out = ''
-        for x in msg:
-            if len(format(ord(x), 'b')) != 8:
-                x = '0' * (8 - len(format(ord(x), 'b'))) + format(ord(x), 'b')
-            out = out + x
-        return out"""
 
     def binToStr(self, msg):
         return binascii.unhexlify('%x' % int(msg, 2))
-        """out = ''
-        for x in range(len(msg)/8):
-            aux = msg[x*8:(x+1)*8]
-            out = out + format(str(msg[x*8:(x+1)*8]))
-            print out"""
+
+    def binToInt(self, msg):
+        return binascii.unhexlify('%x' % int(msg, 16))
 
     def addPadding(self, msg):
         msg = self.strToBin(msg)[2:]
-        print self.binToStr(msg)
+        print len(msg)
         if len(msg) % 8 != 0:
             msg = '0' + msg
         msg = msg + '1'
-        print len(msg)
+        while len(msg) % 448 != 0:
+            msg = msg + '0'
+        print hex(int(msg, 2))
         return msg
 
 if __name__ == '__main__':
