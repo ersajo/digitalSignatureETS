@@ -69,14 +69,16 @@ class RSA(object):
         else:
             return self.mcd(b, a%b)
 
-    def encrypt(self, msg, key):
-        return [(ord(char) ** key[1]) % key[0] for char in msg]
+    def encrypt(self, msg, n, e):
+        return [(ord(char) ** e) % n for char in msg]
 
-    def decrypt(self, msg, key):
-        return ''.join([chr((char ** key[1]) % key[0]) for char in msg])
-
+    def decrypt(self, msg, n, d):
+        return ''.join([chr((char ** d) % n) for char in msg])
 
 if __name__ == "__main__":
     rsa = RSA()
     publicKey,privateKey = rsa.genKeys()
-    print rsa.decrypt(rsa.encrypt("Hola",privateKey),publicKey)
+    print publicKey,privateKey
+    cipher = rsa.encrypt("Hola",privateKey[0], privateKey[1])
+    print cipher
+    print rsa.decrypt(cipher,publicKey[0], publicKey[1])
