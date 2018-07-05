@@ -5,7 +5,6 @@ import io
 from RSA import *
 from sha1 import *
 
-flag = 0
 rsa = RSA()
 sha = SHA1()
 publicKey,privateKey = rsa.genKeys()
@@ -19,7 +18,6 @@ for part in range(len(text)//448+1):
     hashed = hashed + sha.doDigest(sha.addPadding(text))
 print "hashed: ", hashed
 cipher = rsa.encrypt(hashed,privateKey[0], privateKey[1])
-ciphertext = ''
 f = io.open('cipher.txt', 'w', encoding='utf-8')
 for c in cipher:
     f.write(unicode(str(c),'utf-8'))

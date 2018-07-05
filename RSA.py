@@ -52,16 +52,19 @@ class RSA(object):
             return d + phi
 
     def genKeys(self):
-        p = self.genPrime()
-        q = self.genPrime()
-        n = p*q
-        phiEuler = (p-1)*(q-1)
-        while True:
-            e = randint(0,phiEuler)
-            if self.mcd(phiEuler, e) == 1:
-                break
-        d = self.invMult(e, phiEuler)
-        return (n,e),(n,d)
+        try:
+            p = self.genPrime()
+            q = self.genPrime()
+            n = p*q
+            phiEuler = (p-1)*(q-1)
+            while True:
+                e = randint(1,phiEuler)
+                if self.mcd(phiEuler, e) == 1:
+                    break
+            d = self.invMult(e, phiEuler)
+            return (n,e),(n,d)
+        except ValueError:
+            print "HA OCURRIDO UN ERROR, INTENTA DE NUEVO!"
 
     def mcd(self, a, b):
         if b==0:

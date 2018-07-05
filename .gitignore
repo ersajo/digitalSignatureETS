@@ -11,6 +11,8 @@ Thumbs.db
 # Personales
 .idea/
 *.txt
+private*
+public*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
