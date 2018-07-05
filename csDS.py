@@ -53,6 +53,8 @@ def verifyDoc(msg, publicKey):
             i += 1
         out = list()
         for c in msg[i+1:-1].split(","):
+            if ']' in c:
+                c = c[:-1]
             out.append(long(c))
         msg = msg[:i-1]
         rsa = RSA()
